@@ -4,27 +4,25 @@ const path = require('path');
 const logger = require('morgan');
 const passport = require('passport');
 const config = require('./config');
+// const axios = require('axios');
 
 const indexRouter = require('./routes/index');
 const libraryRouter = require('./routes/libraryRouter');
-const favoriteRouter = require('./routes/favoritesRouter');
-const userRouter = require('./routes/usersRouter');
+const userRouter = require('./routes/userRouter');
 const uploadRouter = require('./routes/uploadRouter');
 
+// Spin up Mongoose connection to MongoDB
 const mongoose = require('mongoose');
 const url = config.mongoUrl;
-const connect = mongoose.connect(url, {
+const connectMongo = mongoose.connect(url, {
   useCreateIndex: true,
   useFindAndModify: false,
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
 
-// This connect method refers to connecting to the MongoDB server
-// then methods have an optional second argument that will run if an error is caught
-// removes necessity for .catch method. Useful if you're not chaining promises.
-connect.then(
-  () => console.log('Connection to nucampsite collection in the MongoDB server successful.'), // first argument, what to do once Promise is resolved
+connectMongo.then(
+  () => console.log('Connection to shelfish collection in the MongoDB server successful.'), // first argument, what to do once Promise is resolved
   err => console.log(err) // second argument, what to do if Promise throws an error
 );
 
@@ -54,13 +52,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(passport.initialize());
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/user', userRouter);
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/favorites', favoriteRouter);
 app.use('/library', libraryRouter);
-app.use('/user', userRouter);
 app.use('/imageUpload', uploadRouter);
 
 // catch 404 and forward to error handler
