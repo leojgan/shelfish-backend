@@ -2,15 +2,14 @@ const mongoose = require('mongoose');
 
 const librarySchema = new mongoose.Schema(
     {
-        userId: {
-            type: String,
-            required: true,
-            unique: true
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User' 
         },
-        games: {
+        games: [{
             type: Array,
             required: false
-        }
+        }]
     },
 );
 
