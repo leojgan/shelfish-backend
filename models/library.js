@@ -2,12 +2,12 @@ const mongoose = require('mongoose');
 
 const librarySchema = new mongoose.Schema(
     {
-        user: {
+        userId: {
             type: String,
             required: true,
             unique: true
         },
-        library: {
+        games: {
             type: Array,
             required: false
         }

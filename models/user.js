@@ -3,17 +3,22 @@ const passportLocalMongoose = require('passport-local-mongoose');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-    firstname: {
+    username: {
         type: String,
-        default: ''
+        required: true,
+        unique: true
     },
-    lastname:{
+    password:{
         type: String,
-        default: ''
+        required: true
     },
-    admin: {
+    isAdmin: {
         type: Boolean,
         default: false
+    },
+    library: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Library'
     },
     facebookId: String,
 });
