@@ -37,4 +37,11 @@ libraryRouter.route('/')
     .catch(err => next(err));
 });
 
+libraryRouter.route('/:gameId')
+.options(cors.corsWithOptions, (req, res) => res.sendStatus(200))
+.get()
+.post()
+.put()
+.delete();
+
 module.exports = libraryRouter;
